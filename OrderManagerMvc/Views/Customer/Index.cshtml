@@ -1,0 +1,60 @@
+@*Customer controller index*@
+
+@model IEnumerable<OrderManagerMvc.Models.Customer>
+    @{
+    ViewData["Title"] = "Customer Index";
+    }
+    <h1></h1>
+    <p>
+        <a asp-action="Create" class="btn btn-primary"></a>
+
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Phone)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary"></a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"></a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"></a>
+                </td>
+            </tr>
+                }
+        </tbody>
+    </table>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            
+    }
+
+
