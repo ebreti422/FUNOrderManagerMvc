@@ -1,40 +1,127 @@
 ﻿@model List<OrderManagerMvc.Models.Product>
 @{
-    ViewData["Title"] = "Our Products";
+    ViewData["Title"] = "Our Refreshing Products";
 }
 
-<h2 class="mb-4">Our Water Products</h2>
+<div class="text-center py-5 bg-light mb-5 rounded-lg shadow-sm" style="background-color: #e9f8ff !important;">
+    <h1 class="display-4 font-weight-bold text-primary">Discover Our Pure Water Solutions</h1>
+    <p class="lead text-muted">From crisp bottled water to essential water systems, find what you need.</p>
+</div>
 
-<form method="get" class="row mb-4">
-    <div class="col-md-4">
-        <select name="typeFilter" class="form-select">
-            <option value="">All Types</option>
-            <option value="Bottles" selected="@("Bottles" == ViewBag.TypeFilter)">Bottles</option>
-            <option value="Jugs" selected="@("Jugs" == ViewBag.TypeFilter)">Jugs</option>
-            <option value="Truckload" selected="@("Truckload" == ViewBag.TypeFilter)">Truckload</option>
-        </select>
-    </div>
-    <div class="col-md-4">
-        <input type="number" step="0.01" name="maxPrice" class="form-control" placeholder="Max Price" value="@ViewBag.MaxPrice" />
-    </div>
-    <div class="col-md-4">
-        <button type="submit" class="btn btn-primary w-100">Filter</button>
+---
+
+## Filter & Search Options 🔎
+
+<form method="get" asp-action="Products" class="mb-5 p-3 border rounded shadow-sm bg-white">
+    <div class="form-row align-items-end">
+
+        <div class="col-md-3 mb-3 mb-md-0">
+            <label for="typeFilter" class="sr-only">Product Type</label>
+            <select id="typeFilter" name="typeFilter" class="form-control custom-select">
+                <option value="">All Types</option>
+                <option value="Bottles">Bottles 🚰</option>
+                <option value="Jugs">Jugs 🧴</option>
+                <option value="Truckload">Truckload 🚚</option>
+                <option value="Coolers">Coolers 🧊</option>
+                <option value="Softeners">Softeners ✨</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-3 mb-md-0">
+            <label for="purchaseType" class="sr-only">Option</label>
+            <select id="purchaseType" name="purchaseType" class="form-control custom-select">
+                <option value="">All Options</option>
+                <option value="Buy">Buy</option>
+                <option value="Rent">Rent</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-3 mb-md-0">
+            <label for="maxPrice" class="sr-only">Max Price</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input id="maxPrice" type="number" name="maxPrice" class="form-control" placeholder="Max Price" />
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-filter"></i> Apply Filters
+            </button>
+        </div>
     </div>
 </form>
+
+---
+
+## Our Offerings 🛍️
 
 <div class="row">
     @foreach (var product in Model)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
-                <div class="card-body">
-                    <h5 class="card-title">@product.Name</h5>
-                    <p class="card-text">@product.Description</p>
-                    <p class="fw-bold text-success">$@product.Price</p>
-                    <a asp-controller="Orders" asp-action="Create" class="btn btn-primary">Order Now</a>
+        <div class="col-sm-6 col-lg-4 mb-5">
+            <div class="card h-100 border-0 shadow-lg product-card-hover">
+
+                <div class="product-image-container">
+                    <img src="@product.ImageUrl" class="card-img-top product-image" alt="@product.Name" />
+                </div>
+
+                <div class="card-body d-flex flex-column">
+
+                    <h5 class="card-title text-primary font-weight-bold mb-1">@product.Name</h5>
+
+                    <div class="mb-3">
+                        <span class="badge badge-pill badge-info mr-2">@product.Type</span>
+                        @if (product.PurchaseType == "Rent")
+                        {
+                            <span class="badge badge-pill badge-warning">For Rent</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-pill badge-success">Available to Buy</span>
+                        }
+                    </div>
+
+                    <p class="card-text text-muted flex-grow-1">@product.Description</p>
+
+                    <div class="mt-3 text-center">
+                        <h4 class="text-danger mb-3">
+                            <span class="font-weight-light small text-muted">Starting at</span>
+                            $@string.Format("{0:N2}", product.Price)
+                        </h4>
+                        <a href="/Products/Details/@product.Id" class="btn btn-outline-primary btn-block">View Details</a>
+                    </div>
                 </div>
             </div>
         </div>
     }
 </div>
+
+<style>
+    .product-image-container {
+        height: 200px; /* Standardize image height */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa; /* Light background for clean look */
+    }
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures image fills container without distortion */
+        transition: transform 0.3s ease;
+    }
+    .product-card-hover:hover .product-image {
+        transform: scale(1.05); /* Slight zoom on hover */
+    }
+    .product-card-hover {
+        transition: all 0.3s ease;
+    }
+    .product-card-hover:hover {
+        border-color: #007bff !important; /* Blue border on hover */
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important; /* Stronger shadow on hover */
+    }
+</style>

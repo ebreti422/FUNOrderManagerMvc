@@ -16,21 +16,17 @@ namespace OrderManagerMvc.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Product>()
-                .HasIndex(p => p.Sku)
-                .IsUnique();
-
             modelBuilder.Entity<OrderItem>()
                 .HasOne(oi => oi.Order)
                 .WithMany(o => o.Items)
                 .HasForeignKey(oi => oi.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Product)
-                .WithMany(p => p.OrderItems)
-                .HasForeignKey(oi => oi.ProductId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<OrderItem>()
+                //.HasOne(oi => oi.Product)
+                //.WithMany(p => p.OrderItems)
+                //.HasForeignKey(oi => oi.ProductId)
+                //.OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<OrderItem>()
                 .Property(p => p.UnitPrice)
