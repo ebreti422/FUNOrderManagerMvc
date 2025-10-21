@@ -14,7 +14,11 @@ public class HomeController : Controller
     }
     public IActionResult Index()
     {
-        return RedirectToAction("Products");
+        return View();
+    }
+    public IActionResult WhySkyDrop()
+    {
+        return View();
     }
     public IActionResult Products(string typeFilter, decimal? maxPrice)
     {
