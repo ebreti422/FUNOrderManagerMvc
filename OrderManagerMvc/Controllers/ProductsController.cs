@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace OrderManagerMvc.Controllers
 
     {
-    public class ProductController : Controller
+    public class ProductsController : Controller
         {
         private readonly AppDbContext _context;
-        public ProductController(AppDbContext context)
+        public ProductsController(AppDbContext context)
         {
             _context = context;
         }

@@ -1,6 +1,5 @@
-
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace OrderManagerMvc.Models
 {
@@ -8,20 +7,25 @@ namespace OrderManagerMvc.Models
     {
         public int Id { get; set; }
 
-        [Required, StringLength(160)]
-        public string Name { get; set; } = string.Empty;
+        [Required]
+        public string Name { get; set; }
 
-        [Required, StringLength(40)]
-        public string Sku { get; set; } = string.Empty;
+        [Required]
+        public string Type { get; set; } // Bottles, Jugs, Truckload
 
-        [Range(0, 1_000_000), DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal UnitPrice { get; set; }
+        [Required]
+        [Range(0.01, 10000)]
+        public decimal Price { get; set; } // ? Add this
 
-        public bool IsActive { get; set; } = true;
+        public int StockQuantity { get; set; } // ? Add this
 
-        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-        public string Description { get; internal set; }
-        public int StockQuantity { get; internal set; }
+        public string Description { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        [Required]
+        public string Sku { get; set; }
+
+        public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

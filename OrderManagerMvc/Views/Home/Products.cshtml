@@ -1,0 +1,40 @@
+﻿@model List<OrderManagerMvc.Models.Product>
+@{
+    ViewData["Title"] = "Our Products";
+}
+
+<h2 class="mb-4">Our Water Products</h2>
+
+<form method="get" class="row mb-4">
+    <div class="col-md-4">
+        <select name="typeFilter" class="form-select">
+            <option value="">All Types</option>
+            <option value="Bottles" selected="@("Bottles" == ViewBag.TypeFilter)">Bottles</option>
+            <option value="Jugs" selected="@("Jugs" == ViewBag.TypeFilter)">Jugs</option>
+            <option value="Truckload" selected="@("Truckload" == ViewBag.TypeFilter)">Truckload</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <input type="number" step="0.01" name="maxPrice" class="form-control" placeholder="Max Price" value="@ViewBag.MaxPrice" />
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <p class="fw-bold text-success">$@product.Price</p>
+                    <a asp-controller="Orders" asp-action="Create" class="btn btn-primary">Order Now</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

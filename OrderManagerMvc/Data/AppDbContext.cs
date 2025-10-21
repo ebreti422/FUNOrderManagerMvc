@@ -37,7 +37,7 @@ namespace OrderManagerMvc.Data
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<Product>()
-                .Property(p => p.UnitPrice)
+                .Property(p => p.Price)
                 .HasPrecision(18, 2);
         }
 
