@@ -1,0 +1,52 @@
+﻿@model List<OrderManagerMvc.Models.Order>
+
+<div class="container py-5">
+    <h2 class="mb-4 text-primary">Your Order History</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">You haven't placed any orders yet.</div>
+    }
+    else
+    {
+        foreach (var order in Model)
+        {
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Order #@order.Id</strong> — @order.OrderDate.ToLocalTime().ToString("g")
+                    </div>
+                    <span class="badge bg-secondary">@order.Status</span>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Product</th>
+                                <th>Type</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Line Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in order.Items)
+                            {
+                                <tr>
+                                    <td>@item.Product?.Name</td>
+                                    <td>@item.Product?.Type</td>
+                                    <td>@item.Quantity</td>
+                                    <td>$@item.UnitPrice.ToString("N2")</td>
+                                    <td>$@item.LineTotal.ToString("N2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="text-end fw-bold mt-3">
+                        Total: $@order.TotalAmount.ToString("N2")
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

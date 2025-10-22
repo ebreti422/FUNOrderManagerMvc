@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrderManagerMvc.Data;
+using OrderManagerMvc.Models;
 using System; // Required for TimeSpan
 
 namespace OrderManagerMvc
@@ -12,6 +13,8 @@ namespace OrderManagerMvc
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddHttpContextAccessor();
 
             // Database Context Service
             builder.Services.AddDbContextFactory<AppDbContext>(options =>
@@ -63,6 +66,21 @@ namespace OrderManagerMvc
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                if (!context.Entries.Any())
+                {
+                    context.Entries.AddRange(
+                        new Entry { Description = "Default Entry 1" },
+                        new Entry { Description = "Default Entry 2" },
+                        new Entry { Description = "Default Entry 3" }
+                    );
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }

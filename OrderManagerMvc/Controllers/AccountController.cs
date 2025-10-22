@@ -32,6 +32,12 @@ public class AccountController : Controller
 
     }
 
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Clear(); // Clears all session data
+        return RedirectToAction("Index", "Home"); 
+    }
+
     // Action to handle the POST request when a user submits the registration form
     [HttpPost]
     public IActionResult Register(Customer newCustomer)

@@ -160,10 +160,10 @@ namespace OrderManagerMvc.Controllers
             if (customerId == null)
             {
                 TempData["Error"] = "You must be signed in to place an order.";
-                return RedirectToAction("Create", "Customer"); // or Login page
+                return RedirectToAction("Create", "Customer");
             }
 
-            // Optional: confirm customer exists
+            // Confirm customer exists
             var customer = await _context.Customers.FindAsync(customerId.Value);
             if (customer == null)
             {
@@ -171,7 +171,16 @@ namespace OrderManagerMvc.Controllers
                 return RedirectToAction("Create", "Customer");
             }
 
-            // Create order
+            // ? Create a new Entry for this order
+            var entry = new Entry
+            {
+                Description = $"Order entry for customer {customerId}",
+                CreatedAt = DateTime.UtcNow
+            };
+            _context.Entries.Add(entry);
+            await _context.SaveChangesAsync(); // Save to get Entry.Id
+
+            // ? Create the order and assign EntryId to each item
             var order = new Order
             {
                 CustomerId = customerId.Value,
@@ -181,7 +190,8 @@ namespace OrderManagerMvc.Controllers
                 {
                     ProductId = item.ProductId,
                     Quantity = item.Quantity,
-                    UnitPrice = item.Price
+                    UnitPrice = item.Price,
+                    EntryId = entry.Id // ? Long-term fix: valid FK
                 }).ToList()
             };
 
@@ -193,7 +203,25 @@ namespace OrderManagerMvc.Controllers
             // Clear cart
             HttpContext.Session.Remove("Cart");
 
-            return RedirectToAction("Details", new { id = order.Id });
+            // Redirect to order history
+            return RedirectToAction("History", "Order");
+        }
+        public async Task<IActionResult> History()
+        {
+            int? customerId = HttpContext.Session.GetInt32("CustomerId");
+            if (customerId == null)
+            {
+                return RedirectToAction("Create", "Customer"); // or Login page
+            }
+
+            var orders = await _context.Orders
+                .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+                .Where(o => o.CustomerId == customerId)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+
+            return View(orders);
         }
     }
 }

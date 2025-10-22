@@ -58,6 +58,27 @@ namespace OrderManagerMvc.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("OrderManagerMvc.Models.Entry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Entries");
+                });
+
             modelBuilder.Entity("OrderManagerMvc.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -95,6 +116,9 @@ namespace OrderManagerMvc.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -109,6 +133,8 @@ namespace OrderManagerMvc.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EntryId");
 
                     b.HasIndex("OrderId");
 
@@ -162,6 +188,12 @@ namespace OrderManagerMvc.Migrations
 
             modelBuilder.Entity("OrderManagerMvc.Models.OrderItem", b =>
                 {
+                    b.HasOne("OrderManagerMvc.Models.Entry", "Entry")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("EntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("OrderManagerMvc.Models.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
@@ -174,9 +206,16 @@ namespace OrderManagerMvc.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Entry");
+
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("OrderManagerMvc.Models.Entry", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("OrderManagerMvc.Models.Order", b =>
