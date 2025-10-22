@@ -24,12 +24,11 @@ public static class DbInitializer
             {
             context.Customers.Add(c);
         }
-        context.SaveChanges();
         var products = new Product[]
         {
-            new Product{Sku="P1001", Name="Widget A", Description="High-quality widget A", Price=19.99M, StockQuantity=100},
-            new Product{Sku="P1002", Name="Widget B", Description="Durable widget B", Price=29.99M, StockQuantity=150},
-            new Product{Sku="P1003", Name="Gadget C", Description="Innovative gadget C", Price=39.99M, StockQuantity=200}
+    new Product { Name = "Widget A", Description = "High-quality widget A", Price = 19.99M },
+    new Product { Name = "Widget B", Description = "Durable widget B", Price = 29.99M },
+    new Product { Name = "Gadget C", Description = "Innovative gadget C", Price = 39.99M }
         };
         foreach (Product p in products)
         {
@@ -61,5 +60,3 @@ public static class DbInitializer
         context.SaveChanges();
     }
 }
-
-

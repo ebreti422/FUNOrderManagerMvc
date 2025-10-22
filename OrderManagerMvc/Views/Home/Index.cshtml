@@ -1,9 +1,82 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Pure Water Solutions - SkyDrop Hydro";
 }
 
-<div class="text-center">
-    <h1 class="display-4">This is SkyDrop Hydro</h1>
-    <p>Your water specialists, even the clouds can't beat us!</p>
-    <a asp-controller="Home" asp-action="Products" class="btn btn-primary mt-3">View Our Products</a>
+<style>
+    /* Hero Section Styling */
+    .hero-section {
+        background: linear-gradient(rgba(0, 123, 255, 0.7), rgba(0, 123, 255, 0.7)), url('images/water-bg.jpg') no-repeat center center; /* Replace with an actual clean water image path */
+        background-size: cover;
+        height: 80vh; /* Set a substantial height */
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-radius: 10px; /* Rounded corners for a modern look */
+        margin-bottom: 50px;
+    }
+
+    .hero-content h1 {
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Feature Icon Styling */
+    .feature-icon {
+        font-size: 3rem;
+        color: #007bff; /* Primary blue for consistency */
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="hero-section shadow-lg">
+    <div class="hero-content p-4">
+        <h1 class="display-3">Experience the Purity of SkyDrop Hydro</h1>
+        <p>Your dedicated water specialists, committed to clarity, quality, and service that even the clouds can't beat.</p>
+        <a asp-controller="Home" asp-action="Products" class="btn btn-light btn-lg font-weight-bold shadow-sm pulse-btn">
+            Explore Our Solutions <i class="fas fa-tint ml-2"></i>
+        </a>
+    </div>
+</div>
+
+---
+
+<div class="container text-center py-5">
+    <h2 class="mb-5 text-primary">Why Choose SkyDrop Hydro?</h2>
+    <div class="row">
+
+        <div class="col-md-4 mb-4">
+            <i class="fas fa-leaf feature-icon"></i>
+            <h3>Unmatched Purity</h3>
+            <p class="text-muted">We use a rigorous, multi-stage filtration process to ensure every drop is crisp, clean, and healthy for your family.</p>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <i class="fas fa-truck feature-icon"></i>
+            <h3>Reliable Delivery</h3>
+            <p class="text-muted">Consistent, timely delivery right to your door or office. Never run out of pure hydration again with our flexible plans.</p>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <i class="fas fa-tools feature-icon"></i>
+            <h3>Complete Solutions</h3>
+            <p class="text-muted">From premium bottled water and coolers to advanced water softening and filtration systems, we cover all your needs.</p>
+        </div>
+
+    </div>
+</div>
+
+---
+
+<div class="text-center bg-light py-4 my-5 rounded shadow-sm">
+    <h3 class="mb-3 text-secondary">Ready to start your order?</h3>
+    <a asp-controller="Home" asp-action="Products" class="btn btn-outline-primary btn-lg">
+        See Our Full Catalog
+    </a>
 </div>
