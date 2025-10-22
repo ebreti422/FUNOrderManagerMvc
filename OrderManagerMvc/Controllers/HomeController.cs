@@ -9,16 +9,80 @@ public class HomeController : Controller
     // The existing method to fetch your product data
     private List<Product> GetProducts()
     {
+        // ASSUMPTION: All images are saved in the 'wwwroot/images/' folder.
         return new List<Product>
-        {
-            new Product { Id = 1, Name = "500ml Bottled Water", Type = "Bottles", Price = 1.25M, Description = "Compact and refreshing.", ImageUrl = "/images/bottled-water.jpg", PurchaseType = "Buy" },
-            new Product { Id = 2, Name = "5-Gallon Jug", Type = "Jugs", Price = 8.99M, Description = "Perfect for dispensers.", ImageUrl = "/images/jug-water.jpg", PurchaseType = "Buy" },
-            new Product { Id = 3, Name = "Full Truckload", Type = "Truckload", Price = 499.99M, Description = "Bulk delivery for industrial use.", ImageUrl = "/images/truckload-water.jpg", PurchaseType = "Buy" },
-            new Product { Id = 4, Name = "Water Cooler", Type = "Coolers", Price = 149.99M, Description = "Sleek design with hot/cold options.", ImageUrl = "/images/water-cooler.jpg", PurchaseType = "Buy" },
-            new Product { Id = 5, Name = "Water Cooler Rental", Type = "Coolers", Price = 19.99M, Description = "Monthly rental with maintenance included.", ImageUrl = "/images/water-cooler-rent.jpg", PurchaseType = "Rent" },
-            new Product { Id = 6, Name = "Water Softener", Type = "Softeners", Price = 349.99M, Description = "Removes minerals for cleaner water.", ImageUrl = "/images/water-softener.jpg", PurchaseType = "Buy" },
-            new Product { Id = 7, Name = "Water Softener Rental", Type = "Softeners", Price = 29.99M, Description = "Affordable monthly rental.", ImageUrl = "/images/water-softener-rent.jpg", PurchaseType = "Rent" }
-        };
+    {
+        // 1. Bottled Water
+        new Product {
+            Id = 1,
+            Name = "500ml Bottled Water",
+            Type = "Bottles",
+            Price = 1.25M,
+            Description = "Compact and refreshing.",
+            ImageUrl = "/images/BottledWater.png", // <-- UPDATED FILENAME
+            PurchaseType = "Buy"
+        },
+        // 2. 5-Gallon Jug
+        new Product {
+            Id = 2,
+            Name = "5-Gallon Jug",
+            Type = "Jugs",
+            Price = 8.99M,
+            Description = "Perfect for dispensers.",
+            ImageUrl = "/images/5GallonJug.png", // <-- UPDATED FILENAME
+            PurchaseType = "Buy"
+        },
+        // 3. Full Truckload (Water Truck)
+        new Product {
+            Id = 3,
+            Name = "Full Truckload",
+            Type = "Truckload",
+            Price = 499.99M,
+            Description = "Bulk delivery for industrial use.",
+            ImageUrl = "/images/WaterTruck.png", // <-- UPDATED FILENAME
+            PurchaseType = "Buy"
+        },
+        // 4. Water Cooler (Buy)
+        new Product {
+            Id = 4,
+            Name = "Water Cooler",
+            Type = "Coolers",
+            Price = 149.99M,
+            Description = "Sleek design with hot/cold options.",
+            ImageUrl = "/images/WaterCooler.png", // <-- UPDATED FILENAME
+            PurchaseType = "Buy"
+        },
+        // 5. Water Cooler Rental - Reusing the main Water Cooler image
+        new Product {
+            Id = 5,
+            Name = "Water Cooler Rental",
+            Type = "Coolers",
+            Price = 19.99M,
+            Description = "Monthly rental with maintenance included.",
+            ImageUrl = "/images/WaterCooler.png", // <-- RE-USED IMAGE
+            PurchaseType = "Rent"
+        },
+        // 6. Water Softener (Buy)
+        new Product {
+            Id = 6,
+            Name = "Water Softener",
+            Type = "Softeners",
+            Price = 349.99M,
+            Description = "Removes minerals for cleaner water.",
+            ImageUrl = "/images/WaterSoftener.png", // <-- ASSUMED FILENAME
+            PurchaseType = "Buy"
+        },
+        // 7. Water Softener Rental - Reusing the main Water Softener image
+        new Product {
+            Id = 7,
+            Name = "Water Softener Rental",
+            Type = "Softeners",
+            Price = 29.99M,
+            Description = "Affordable monthly rental.",
+            ImageUrl = "/images/WaterSoftener.png", // <-- RE-USED IMAGE
+            PurchaseType = "Rent"
+        }
+    };
     }
 
     // Standard Actions
