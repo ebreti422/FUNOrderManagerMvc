@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using OrderManagerMvc.Data;
 using OrderManagerMvc.Models;
 using System.Threading.Tasks;
@@ -29,6 +30,8 @@ namespace OrderManagerMvc.Controllers
             }
             var order = await _context.Orders
                 .Include(o => o.Customer)
+                .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(m => m.Id == id); // Changed from FindAsync to FirstOrDefaultAsync for better null handling
             if (order == null)
             {
@@ -139,6 +142,58 @@ namespace OrderManagerMvc.Controllers
         private bool OrderExists(int id)
         {
             return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout()
+        {
+            // Retrieve cart from session
+            var cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>("Cart");
+            if (cart == null || !cart.Any())
+            {
+                TempData["Error"] = "Your cart is empty.";
+                return RedirectToAction("Cart", "Home");
+            }
+
+            // Retrieve CustomerId from session
+            int? customerId = HttpContext.Session.GetInt32("CustomerId");
+            if (customerId == null)
+            {
+                TempData["Error"] = "You must be signed in to place an order.";
+                return RedirectToAction("Create", "Customer"); // or Login page
+            }
+
+            // Optional: confirm customer exists
+            var customer = await _context.Customers.FindAsync(customerId.Value);
+            if (customer == null)
+            {
+                TempData["Error"] = "Customer not found.";
+                return RedirectToAction("Create", "Customer");
+            }
+
+            // Create order
+            var order = new Order
+            {
+                CustomerId = customerId.Value,
+                OrderDate = DateTime.UtcNow,
+                Status = "Submitted",
+                Items = cart.Select(item => new OrderItem
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.Price
+                }).ToList()
+            };
+
+            order.TotalAmount = order.Items.Sum(i => i.LineTotal);
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            // Clear cart
+            HttpContext.Session.Remove("Cart");
+
+            return RedirectToAction("Details", new { id = order.Id });
         }
     }
 }
