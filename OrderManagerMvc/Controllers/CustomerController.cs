@@ -50,6 +50,7 @@ namespace OrderManagerMvc.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.ActiveTab = "register"; // Set active tab to register on validation failure
             return View(customer);
         }
 

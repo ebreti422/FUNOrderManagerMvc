@@ -70,10 +70,11 @@
                                 <span>$@string.Format("{0:N2}", grandTotal)</span>
                             </li>
                         </ul>
-
-                        <button class="btn btn-primary btn-lg btn-block mt-4" disabled>
-                            Proceed to Checkout (Not Implemented)
-                        </button>
+                        <form asp-controller="Order" asp-action="Checkout" method="post">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
+                                Proceed to Checkout
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
