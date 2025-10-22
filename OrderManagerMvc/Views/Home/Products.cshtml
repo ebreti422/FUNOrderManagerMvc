@@ -91,7 +91,9 @@
                             <span class="font-weight-light small text-muted">Starting at</span>
                             $@string.Format("{0:N2}", product.Price)
                         </h4>
-                        <a href="/Products/Details/@product.Id" class="btn btn-outline-primary btn-block">View Details</a>
+                        <a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@product.Id" class="btn btn-outline-primary btn-block">
+                            View Details
+                        </a>
                     </div>
                 </div>
             </div>

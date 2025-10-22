@@ -1,0 +1,76 @@
+﻿@model OrderManagerMvc.Models.Product
+@{
+    ViewData["Title"] = Model.Name + " Details";
+}
+
+<div class="container py-5">
+    <div class="row">
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-lg border-0">
+                <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name" style="max-height: 500px; object-fit: contain; padding: 20px;">
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <h1 class="display-4 font-weight-bold text-primary">@Model.Name</h1>
+
+            <hr class="my-4">
+
+            <form asp-action="AddToCart" asp-controller="Home" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+
+                <div class="d-flex align-items-center mb-4">
+                    <h2 class="text-danger mr-4">
+                        $@string.Format("{0:N2}", Model.Price)
+                    </h2>
+
+                    <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                        <i class="fas fa-cart-plus mr-2"></i>
+                        @if (Model.PurchaseType == "Rent")
+                        {
+                            <span>Start Rental Plan</span>
+                        }
+                        else
+                        {
+                            <span>Add to Cart</span>
+                        }
+                    </button>
+                </div>
+            </form>
+            <div class="mb-4">
+                <p class="lead text-muted">@Model.Description</p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <i class="fas fa-cubes text-info mr-2"></i>
+                    <strong>Product Type:</strong> @Model.Type
+                </li>
+                <li class="list-group-item">
+                    <i class="fas fa-tag text-info mr-2"></i>
+                    <strong>Purchase Option:</strong> @Model.PurchaseType
+                </li>
+                <li class="list-group-item">
+                    <i class="fas fa-check-circle text-info mr-2"></i>
+                    <strong>Availability:</strong> In Stock
+                </li>
+            </ul>
+
+            <div class="mt-4 p-3 border rounded bg-light">
+                <h5 class="text-secondary">Key Benefits:</h5>
+                <p class="small text-muted mb-0">
+                    * Ultra-filtered for superior taste. <br>
+                    * Eco-friendly packaging options. <br>
+                    * Fast, reliable local delivery.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center">
+        <a asp-action="Products" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left mr-2"></i> Back to All Products
+        </a>
+    </div>
+</div>
