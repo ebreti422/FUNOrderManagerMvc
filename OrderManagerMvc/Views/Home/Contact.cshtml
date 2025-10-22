@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Contact SkyDrop Hydro";
+}
+
+<div class="container py-5">
+
+    <header class="text-center mb-5">
+        <h1 class="display-4 font-weight-bold text-primary">Get in Touch with SkyDrop Hydro</h1>
+        <p class="lead text-muted">We're here to answer your questions and help you find the perfect water solution.</p>
+    </header>
+
+    <div class="row">
+
+        <div class="col-lg-7 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title text-info mb-4">Send Us a Message</h4>
+
+                    <form action="/Contact/Submit" method="post">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" class="form-control" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea class="form-control" id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-4">
+                            Submit Inquiry <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5 mb-4">
+            <div class="card shadow-sm h-100 bg-light border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-info mb-4">Our Details</h4>
+
+                    <p class="lead">
+                        <i class="fas fa-phone-alt text-primary mr-2"></i> **Phone Support**
+                    </p>
+                    <p class="text-muted ml-4 mb-3">
+                        Call us anytime: **(555) 💧 HYDRO** <br>
+                        *Available Mon - Fri, 8am - 6pm CDT*
+                    </p>
+
+                    <p class="lead">
+                        <i class="fas fa-envelope text-primary mr-2"></i> **Email Support**
+                    </p>
+                    <p class="text-muted ml-4 mb-3">
+                        General Inquiries: <a href="mailto:info@skydrophydro.com">info@skydrophydro.com</a> <br>
+                        Billing Questions: <a href="mailto:billing@skydrophydro.com">billing@skydrophydro.com</a>
+                    </p>
+
+                    <p class="lead">
+                        <i class="fas fa-map-marker-alt text-primary mr-2"></i> **Head Office**
+                    </p>
+                    <p class="text-muted ml-4 mb-3">
+                        SkyDrop Hydro HQ <br>
+                        100 Purity Lane, Water Falls, TX 77501
+                    </p>
+
+                    <div class="mt-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 p-3 bg-warning rounded text-dark">
+        <h5 class="mb-0">Need immediate assistance? For delivery issues, please call us directly.</h5>
+    </div>
+</div>

@@ -45,7 +45,11 @@ public class HomeController : Controller
         return View(products);
     }
 
-    public IActionResult WhySkyDro()
+    public IActionResult WhySkyDrop()
+    {
+        return View();
+    }
+    public IActionResult Contact()
     {
         return View();
     }
