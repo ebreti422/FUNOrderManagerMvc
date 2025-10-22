@@ -1,0 +1,90 @@
+﻿@model OrderManagerMvc.Models.Customer
+@{
+    ViewData["Title"] = "Sign In / Sign Up";
+    var activeTab = ViewBag.ActiveTab as string ?? "login";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Welcome to SkyDrop</h2>
+
+    <ul class="nav nav-tabs mb-4" id="authTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link @(activeTab == "login" ? "active" : "")" data-bs-toggle="tab" href="#loginTab">Sign In</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(activeTab == "register" ? "active" : "")" data-bs-toggle="tab" href="#registerTab">Sign Up</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Sign In Tab -->
+        <div class="tab-pane fade @(activeTab == "login" ? "show active" : "")" id="loginTab">
+            <form asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input name="email" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Password</label>
+                    <input name="password" type="password" class="form-control" />
+                </div>
+                @if (ViewBag.LoginError != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.LoginError</div>
+                }
+                <button type="submit" class="btn btn-primary w-100">Sign In</button>
+            </form>
+        </div>
+
+        <!-- Sign Up Tab -->
+        <div class="tab-pane fade @(activeTab == "register" ? "show active" : "")" id="registerTab">
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Address"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Create Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
