@@ -9,14 +9,32 @@
     <link rel="stylesheet" href="~/SkyDroHydro.styles.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <style>
 
-        /* Increase size of the shopping cart icon specifically */
-        .navbar-nav .fa-shopping-cart {
-            font-size: 1.75rem !important; /* Larger icon size */
-            margin-right: 5px; /* Add slight margin between icon and text */
+    <style>
+        .navbar {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
         }
 
+        .navbar-nav .nav-link {
+            font-size: 1.4rem !important;
+        }
+
+        .navbar-nav .fa-shopping-cart {
+            font-size: 1.75rem !important;
+            margin-right: 5px;
+        }
+
+        .navbar-brand {
+            align-items: center !important;
+        }
+
+        .btn-navbar-account {
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem; 
+            margin-left: 15px; 
+            line-height: 1.4rem;
+        }
     </style>
 </head>
 <body>
@@ -47,11 +65,18 @@
                         </li>
                     </ul>
 
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav d-flex align-items-center">
                         <li class="nav-item">
                             <a class="nav-link text-primary fw-bold" asp-area="" asp-controller="Home" asp-action="Cart">
                                 <i class="fas fa-shopping-cart"></i> Cart
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-navbar-account" asp-controller="Customer" asp-action="Create">
+                                Sign In / Sign Up
+                            </a>
+                        </li>
+                        </li>
                         </li>
                     </ul>
                 </div>

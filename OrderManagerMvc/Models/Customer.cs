@@ -5,20 +5,32 @@ namespace OrderManagerMvc.Models
     public class Customer
     {
         public int Id { get; set; }
-        
-        public string FirstName { get; set; } = string.Empty; // Add this property
 
-        public string LastName { get; set; } = string.Empty;  // Add this property
+        [Required]
+        [Display(Name = "Full Name")]
+        public string? Name { get; set; }
 
-        [EmailAddress, StringLength(200)]
+        [Required]
+        [EmailAddress]
         public string? Email { get; set; }
 
-        [Phone, StringLength(40)]
-        public string? Phone { get; set; }
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string? Password { get; set; }
 
-        [StringLength(200)]
+        // CRITICAL ADDITION: Required for the "Create" (Sign-Up) View
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string? ConfirmPassword { get; set; } // <--- ADDED
+
+        // Additional data points
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        public string? PhoneNumber { get; set; }
+
+        [Required]
         public string? Address { get; set; }
-
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }
