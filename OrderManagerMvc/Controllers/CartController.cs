@@ -71,7 +71,7 @@ namespace OrderManagerMvc.Controllers
                     Quantity = item.Quantity,
                     Gallons = item.Gallons,
                     RentalMonths = item.RentalMonths,
-                    ImageUrl = product.ImageUrl
+                    ImageUrl = item.ImageUrl,
                 });
             }
 
@@ -105,6 +105,7 @@ namespace OrderManagerMvc.Controllers
 
         private void SaveCart(List<CartItem> cart)
         {
+            //Console.WriteLine(JsonConvert.SerializeObject(cart));
             var json = JsonConvert.SerializeObject(cart);
             HttpContext.Session.SetString("Cart", json);
         }
