@@ -2,6 +2,8 @@
 using OrderManagerMvc.Data;
 using OrderManagerMvc.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OrderManagerMvc.Controllers
 {
@@ -18,40 +20,67 @@ namespace OrderManagerMvc.Controllers
         public IActionResult Index()
         {
             var cart = GetCart();
-            return View(cart);
+            return View("Index", cart); // Points to /Views/Cart/Index.cshtml
         }
 
         // Add Product to Cart
         [HttpPost]
-        public IActionResult AddToCart(int productId, int quantity = 1)
+        public IActionResult AddToCart(CartItem item)
         {
-            var product = _context.Products.Find(productId);
+            var product = _context.Products.Find(item.ProductId);
             if (product == null) return NotFound();
 
             var cart = GetCart();
 
-            var existingItem = cart.FirstOrDefault(i => i.ProductId == productId);
+            // Match by product and customization (excluding quantity)
+            var existingItem = cart.FirstOrDefault(i =>
+                i.ProductId == item.ProductId &&
+                i.Gallons == item.Gallons &&
+                i.RentalMonths == item.RentalMonths);
+
             if (existingItem != null)
             {
-                existingItem.Quantity += quantity;
+                existingItem.Quantity += item.Quantity;
             }
             else
             {
+                decimal finalPrice = product.Price;
+
+                if (product.Type == "Truckload" && item.Gallons.HasValue)
+                {
+                    finalPrice *= item.Gallons.Value;
+                    item.Quantity = 1;
+                }
+                else if (product.PurchaseType == "Rent" && item.RentalMonths.HasValue)
+                {
+                    finalPrice *= item.RentalMonths.Value;
+                    item.Quantity = 1;
+                }
+                else
+                {
+                    finalPrice *= item.Quantity;
+                }
+
                 cart.Add(new CartItem
                 {
                     ProductId = product.Id,
                     Name = product.Name,
-                    Price = product.Price,
-                    Quantity = quantity,
+                    Type = product.Type,
+                    PurchaseType = product.PurchaseType,
+                    Price = finalPrice,
+                    Quantity = item.Quantity,
+                    Gallons = item.Gallons,
+                    RentalMonths = item.RentalMonths,
                     ImageUrl = product.ImageUrl
                 });
             }
 
             SaveCart(cart);
+            TempData["Success"] = $"{product.Name} added to cart!";
             return RedirectToAction("Index");
         }
 
-        // Remove item (optional)
+        // Remove item
         [HttpPost]
         public IActionResult RemoveFromCart(int productId)
         {
@@ -65,7 +94,7 @@ namespace OrderManagerMvc.Controllers
             return RedirectToAction("Index");
         }
 
-        // Helper: Get cart from session
+        // Helpers
         private List<CartItem> GetCart()
         {
             var json = HttpContext.Session.GetString("Cart");
@@ -74,7 +103,6 @@ namespace OrderManagerMvc.Controllers
                 : JsonConvert.DeserializeObject<List<CartItem>>(json) ?? new List<CartItem>();
         }
 
-        // Helper: Save cart to session
         private void SaveCart(List<CartItem> cart)
         {
             var json = JsonConvert.SerializeObject(cart);
