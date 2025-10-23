@@ -8,12 +8,10 @@
     <p class="lead text-muted">From crisp bottled water to essential water systems, find what you need.</p>
 </div>
 
----
-
-## Filter & Search Options 🔎
+Filter & Search Options 🔎
 
 <form method="get" asp-action="Products" class="mb-5 p-3 border rounded shadow-sm bg-white">
-    <div class="form-row align-items-end">
+    <div class="d-flex flex-wrap align-items-end gap-3">
 
         <div class="col-md-3 mb-3 mb-md-0">
             <label for="typeFilter" class="sr-only">Product Type</label>
@@ -54,9 +52,7 @@
     </div>
 </form>
 
----
-
-## Our Offerings 🛍️
+Our Offerings 🛍️
 
 <div class="row">
     @foreach (var product in Model)

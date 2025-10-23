@@ -14,13 +14,13 @@ namespace OrderManagerMvc.Controllers
         {
             _context = context;
         }
-        // GET: Product
+
         public async Task<IActionResult> Index()
         {
             var products = await _context.Products.ToListAsync();
             return View(products);
         }
-        // GET: Product/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Products == null)
@@ -28,19 +28,19 @@ namespace OrderManagerMvc.Controllers
                 return NotFound();
             }
             var product = await _context.Products 
-                .FirstOrDefaultAsync(m => m.Id == id); // Changed from FindAsync to FirstOrDefaultAsync for better null handling
+                .FirstOrDefaultAsync(m => m.Id == id); 
             if (product == null)
             {
                 return NotFound();
             }
             return View(product);
         }
-        // GET: Product/Create
+
         public IActionResult Create()
         {
             return View();
         }
-        // POST: Product/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Stock")] Product product)
@@ -53,7 +53,7 @@ namespace OrderManagerMvc.Controllers
             }
             return View(product);
         }
-        // GET: Product/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Products == null)
@@ -67,7 +67,7 @@ namespace OrderManagerMvc.Controllers
             }
             return View(product);
         }
-        // POST: Product/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Stock")] Product product)
@@ -98,7 +98,7 @@ namespace OrderManagerMvc.Controllers
                 }                   
             return View(product);
             }
-        // GET: Product/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Products == null)
@@ -113,7 +113,7 @@ namespace OrderManagerMvc.Controllers
             }
             return View(product);
         }
-        // POST: Product/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
