@@ -12,6 +12,5 @@ namespace OrderManagerMvc.Models
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
         public string? PurchaseType { get; set; } // "Buy" or "Rent"
-        public object OrderItems { get; internal set; }
     }
 }

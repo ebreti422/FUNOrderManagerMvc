@@ -9,7 +9,7 @@ public class HomeController : Controller
     // The existing method to fetch your product data
     private List<Product> GetProducts()
     {
-   
+        // ASSUMPTION: All images are saved in the 'wwwroot/images/' folder.
         return new List<Product>
     {
         // 1. Bottled Water
@@ -19,7 +19,7 @@ public class HomeController : Controller
             Type = "Bottles",
             Price = 1.25M,
             Description = "Compact and refreshing.",
-            ImageUrl = "/images/BottledWater.png",
+            ImageUrl = "/images/BottledWater.png", // <-- UPDATED FILENAME
             PurchaseType = "Buy"
         },
         // 2. 5-Gallon Jug
@@ -29,7 +29,7 @@ public class HomeController : Controller
             Type = "Jugs",
             Price = 8.99M,
             Description = "Perfect for dispensers.",
-            ImageUrl = "/images/5GallonJug.png",
+            ImageUrl = "/images/5GallonJug.png", // <-- UPDATED FILENAME
             PurchaseType = "Buy"
         },
         // 3. Full Truckload (Water Truck)
@@ -39,7 +39,7 @@ public class HomeController : Controller
             Type = "Truckload",
             Price = 499.99M,
             Description = "Bulk delivery for industrial use.",
-            ImageUrl = "/images/WaterTruck.png", 
+            ImageUrl = "/images/WaterTruck.png", // <-- UPDATED FILENAME
             PurchaseType = "Buy"
         },
         // 4. Water Cooler (Buy)
@@ -49,17 +49,17 @@ public class HomeController : Controller
             Type = "Coolers",
             Price = 149.99M,
             Description = "Sleek design with hot/cold options.",
-            ImageUrl = "/images/WaterCooler.png",
+            ImageUrl = "/images/WaterCooler.png", // <-- UPDATED FILENAME
             PurchaseType = "Buy"
         },
-        // 5. Water Cooler Rental
+        // 5. Water Cooler Rental - Reusing the main Water Cooler image
         new Product {
             Id = 5,
             Name = "Water Cooler Rental",
             Type = "Coolers",
             Price = 19.99M,
             Description = "Monthly rental with maintenance included.",
-            ImageUrl = "/images/WaterCooler.png", 
+            ImageUrl = "/images/WaterCooler.png", // <-- RE-USED IMAGE
             PurchaseType = "Rent"
         },
         // 6. Water Softener (Buy)
@@ -69,7 +69,7 @@ public class HomeController : Controller
             Type = "Softeners",
             Price = 349.99M,
             Description = "Removes minerals for cleaner water.",
-            ImageUrl = "/images/WaterSoftener.png",
+            ImageUrl = "/images/WaterSoftener.png", // <-- ASSUMED FILENAME
             PurchaseType = "Buy"
         },
         // 7. Water Softener Rental - Reusing the main Water Softener image
@@ -79,7 +79,7 @@ public class HomeController : Controller
             Type = "Softeners",
             Price = 29.99M,
             Description = "Affordable monthly rental.",
-            ImageUrl = "/images/WaterSoftener.png",
+            ImageUrl = "/images/WaterSoftener.png", // <-- RE-USED IMAGE
             PurchaseType = "Rent"
         }
     };
