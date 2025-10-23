@@ -3,6 +3,37 @@
     ViewData["Title"] = "Our Refreshing Products";
 }
 
+<style>
+    .product-image-container {
+        height: 200px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .product-card-hover:hover .product-image {
+        transform: scale(1.05);
+    }
+
+    .product-card-hover {
+        transition: all 0.3s ease;
+    }
+
+        .product-card-hover:hover {
+            border-color: #007bff !important;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+        }
+</style>
+
 <div class="text-center py-5 bg-light mb-5 rounded-lg shadow-sm" style="background-color: #e9f8ff !important;">
     <h1 class="display-4 font-weight-bold text-primary">Discover Our Pure Water Solutions</h1>
     <p class="lead text-muted">From crisp bottled water to essential water systems, find what you need.</p>
@@ -92,33 +123,4 @@
     }
 </div>
 
-<style>
-    .product-image-container {
-        height: 200px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f8f9fa;
-    }
 
-    .product-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-
-    .product-card-hover:hover .product-image {
-        transform: scale(1.05);
-    }
-
-    .product-card-hover {
-        transition: all 0.3s ease;
-    }
-
-        .product-card-hover:hover {
-            border-color: #007bff !important;
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-        }
-</style>
