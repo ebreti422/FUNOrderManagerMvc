@@ -41,7 +41,7 @@
 
 <!-- Filter & Search Options 🔎 -->
 <form method="get" asp-action="Products" class="mb-5 p-3 border rounded shadow-sm bg-white">
-    <div class="form-row align-items-end">
+    <div class="d-flex flex-wrap align-items-end gap-3">
         <div class="col-md-3 mb-3 mb-md-0">
             <label for="typeFilter" class="sr-only">Product Type</label>
             <select id="typeFilter" name="typeFilter" class="form-control custom-select">
@@ -54,7 +54,7 @@
             </select>
         </div>
 
-        <div class="col-md-3 mb-3 mb-md-0">
+        <div class="d-flex flex-wrap align-items-end gap-3">
             <label for="purchaseType" class="sr-only">Option</label>
             <select id="purchaseType" name="purchaseType" class="form-control custom-select">
                 <option value="">All Options</option>
@@ -63,7 +63,7 @@
             </select>
         </div>
 
-        <div class="col-md-3 mb-3 mb-md-0">
+        <div class="d-flex flex-wrap align-items-end gap-3">
             <label for="maxPrice" class="sr-only">Max Price</label>
             <div class="input-group">
                 <div class="input-group-prepend">
